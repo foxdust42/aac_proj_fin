@@ -91,7 +91,7 @@ vector<pair<int, int>> minimalExtension(Graph graph)
 
             if (hasHamiltonianCycle(graph, isDirected))
             {
-                vector<pair<int , int> result;
+                vector<pair<int , int>> result;
                 for(int j=0 ; j<m ; j++)
                 {
                     if(bitmask[j])

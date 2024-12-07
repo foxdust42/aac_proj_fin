@@ -1,7 +1,7 @@
 #include "common.hpp"
 #include "graph_cycles.hpp"
 #include "GED.hpp"
-#include "approximation.hpp"
+#include "approximation_hcp.hpp"
 #include "exact_hamiltonian.hpp"
 
 #include <iostream>
@@ -122,7 +122,7 @@ void UserInterace(vector<Graph>& graphs) {
 
             if (isExact) {
                 cout << "Number of minimal extension exact solution: " << minimalExtension(graphs[graphNumber]).size() << endl;
-                cout<< "Edges that need to be added: " << endl;
+                cout << "Edges that need to be added: " << endl;
                 for (auto edge : minimalExtension(graphs[graphNumber])) {
                     cout << edge.first << " " << edge.second << endl;
                 }
@@ -134,10 +134,12 @@ void UserInterace(vector<Graph>& graphs) {
                 }
             }
             else {
-                cout << "Number of minimal extension aprox solution: " << hamiltonian_completion_approximation(graphs[graphNumber].adjacencyMatrix) << endl;
-                cout << "Exact Solution: " << endl;
-
-
+                auto result = hamiltonian_completion_approximation(graphs[graphNumber].adjacencyMatrix);
+                cout << "Number of minimal extension aprox solution: " << result.size() << endl;
+                cout << "Edges that need to be added: " << endl;
+                for (auto edge : result) {
+                    cout << edge.first << " " << edge.second << endl;
+                }
                 cout << "Aprox Solution: " << endl;
                 if (graphs[graphNumber].vertices == APXMaxCycle(&graphs.at(graphNumber), &cycle_num)) {
                     cout << "number of hamiltonian cycles: " << cycle_num << endl;
