@@ -110,10 +110,9 @@ void print_cycle(const std::vector<int> cycle) {
 
 bool contains(const std::set<int> s, int x) { return s.find(x) != s.end(); }
 
-// TODO pass is_symmetric
 bool three_opt_move(std::vector<int>& cycle,
                     const std::vector<std::vector<int>>& weights,
-                    bool is_symmetric = false) {
+                    bool is_symmetric) {
   int n = cycle.size();
   bool improved = false;
   int best_gain = 0;
@@ -377,6 +376,16 @@ int get_consistent_start_vertex(int n) {
   return last_vertex;
 }
 
+bool checkIfDirected(int n, const std::vector<std::vector<int>>& graph) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i; j < n; j++) {
+            if (graph.at(i).at(j) != graph.at(j).at(i))
+                return true;
+        }
+    }
+    return false;
+}
+
 std::vector<std::pair<int, int>> hamiltonian_completion_approximation(
     const std::vector<std::vector<int>>& graph) {
   // Transform to complete weighted graph
@@ -397,10 +406,11 @@ std::vector<std::pair<int, int>> hamiltonian_completion_approximation(
   bool improved;
   int iters = 0;
 
+  bool directed = checkIfDirected(n, graph);
   // 3-Opt heuritic until no improvement is found
   do {  // this makes it iterated three_opt which has higher time complexity,
         // but better accuracy
-    improved = three_opt_move(cycle, weighted_graph.weightMatrix);
+    improved = three_opt_move(cycle, weighted_graph.weightMatrix, !directed);
     iters++;
   } while (improved && iters < 10 * n);  // limit of iterations as a afilsafe
 
