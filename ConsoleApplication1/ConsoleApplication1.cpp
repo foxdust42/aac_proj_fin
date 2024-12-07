@@ -1,4 +1,4 @@
-﻿#include "common.hpp"
+#include "common.hpp"
 #include "graph_cycles.hpp"
 #include "GED.hpp"
 #include "approximation.hpp"
@@ -44,7 +44,7 @@ void UserInterace(vector<Graph>& graphs) {
         }
         bool isExact = 0;
         if (!(option == 0 || option == 1 || option == 5)) {
-            cout << "Chose mode approx=0/exact=1: " << endl;
+            cout << "Chose mode approx=0/exact=1: ";
             cin >> isExact;
         }
 
@@ -82,7 +82,7 @@ void UserInterace(vector<Graph>& graphs) {
             }
             else {
                 cout << "Approximation:" << endl;
-                cout << "Edit distance between Graph " << graph1 << " and Graph " << graph2 << " is: " << CalculateGraphEditDistance(graphs.at(graph1), graphs.at(graph2)) << endl;
+                cout << "Edit distance between Graph " << graph1 << " and Graph " << graph2 << " is: " << approximateGED(graphs.at(graph1), graphs.at(graph2)) << endl;
             }
             
 
@@ -171,12 +171,12 @@ void UserInterace(vector<Graph>& graphs) {
 
 int main() {
     string filename;
-    cout << system("pwd");
     cout << "Data file path: ";
     cin >> filename;
 
     vector<Graph> graphs = parseGraphs(filename);
     cout << "Parsed " << graphs.size() << " graphs." << endl;
+
 
     UserInterace(graphs);
 
