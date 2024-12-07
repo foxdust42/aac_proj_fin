@@ -3,14 +3,16 @@
 
 #include "common.hpp"
 #include <unordered_map>
+#include <set>
 
 struct EditPath {
-    unordered_map<int, int> mapping; // Mapping of vertices from g1 to g2
-    double costSoFar;               // g(p)
-    double heuristicCost;           // lb(p)
+    unordered_map<int, int> mapping;   // Maps nodes from g1 to g2
+    set<int> deletedNodes;            // Tracks deleted nodes from g1
+    double costSoFar;                 // Cost accumulated so far
+    double heuristicCost;             // Estimated remaining cost
 
-    bool operator>(const EditPath& other) const {
-        return (costSoFar + heuristicCost) > (other.costSoFar + other.heuristicCost);
+    double totalCost() const {
+        return costSoFar + heuristicCost;
     }
 };
 
@@ -19,10 +21,8 @@ int GraphSize(const Graph& graph);
 double edgeSubstitutionCost(int e1, int e2);
 double insertionCost();
 double deletionCost();
-double computeHeuristic(const Graph& g1, const Graph& g2, const unordered_map<int, int>& mapping);
+double computeHeuristic(const Graph& g1, const Graph& g2, const unordered_map<int, int>& mapping, const set<int>& deletedNodes);
 double astarGED(const Graph& g1, const Graph& g2);
-
-
-int CalculateGraphEditDistance(Graph& A, Graph& B);
+double approximateGED(const Graph& g1, const Graph& g2);
 
 #endif //GED_HPP
