@@ -121,7 +121,11 @@ void UserInterace(vector<Graph>& graphs) {
             }
 
             if (isExact) {
-                cout << "Number of minimal extension exact solution: " << minimalExtension(graphs[graphNumber]) << endl;
+                cout << "Number of minimal extension exact solution: " << minimalExtension(graphs[graphNumber]).size() << endl;
+                cout<< "Edges that need to be added: " << endl;
+                for (auto edge : minimalExtension(graphs[graphNumber])) {
+                    cout << edge.first << " " << edge.second << endl;
+                }
                 if (graphs[graphNumber].vertices == MaxCycle(&graphs.at(graphNumber), &cycle_num)) {
                     cout << "number of hamiltonian cycles: " << cycle_num << endl;
                 }

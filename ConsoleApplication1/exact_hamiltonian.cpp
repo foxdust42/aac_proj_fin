@@ -45,7 +45,7 @@ bool hasHamiltonianCycle(const Graph& graph, bool isDirected)
     return hasHamiltonianCycleUtil(graph, 0, visited, 1, isDirected);
 }
 
-int minimalExtension(Graph graph)
+vector<pair<int, int>> minimalExtension(Graph graph)
 {
     int n = graph.vertices;
     bool isDirected = checkIfDirected(graph);
@@ -65,7 +65,7 @@ int minimalExtension(Graph graph)
 
     if (hasHamiltonianCycle(graph, isDirected))
     {
-        return 0;
+        return {};
     }
 
     int m = missingEdges.size();
@@ -91,7 +91,15 @@ int minimalExtension(Graph graph)
 
             if (hasHamiltonianCycle(graph, isDirected))
             {
-                return k;
+                vector<pair<int , int> result;
+                for(int j=0 ; j<m ; j++)
+                {
+                    if(bitmask[j])
+                    {
+                        result.push_back(missingEdges[j]);
+                    }
+                }
+                return result;
             }
 
             for (int i = 0; i < m; ++i)
@@ -108,5 +116,5 @@ int minimalExtension(Graph graph)
             }
         } while (prev_permutation(bitmask.begin(), bitmask.end()));
     }
-    return -1;
+    return {};
 }

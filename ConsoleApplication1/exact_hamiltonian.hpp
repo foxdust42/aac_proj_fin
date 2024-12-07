@@ -8,6 +8,6 @@ bool hasHamiltonianCycleUtil(const Graph& graph, int pos, vector<bool>& visited,
 
 bool hasHamiltonianCycle(const Graph& graph, bool isDirected);
 
-int minimalExtension(Graph graph);
+vector<pair<int, int>> minimalExtension(Graph graph);
 
 #endif //EXACT_HAMILTONIAN_HPP
