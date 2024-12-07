@@ -21,7 +21,7 @@ if __name__ == "__main__":
     size_max = int(input("Size max: "))
     step = int(input("Step size: "))
     count = int(input("Count per size: "))
-    density_t = input("Graph density (0 <= d <= 1; 'r' for random densities)")
+    density_t = input("Graph density (0 <= d <= 1; 'r' for random densities) ")
     filename_p = input("Target filename prefix: ")
     random_d = False
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
             if (random_d):
                 p = rand.random()
             else:
-                p = density_t
+                p = density
             
             gen_graph(s, p, outfile)
         outfile.close()
